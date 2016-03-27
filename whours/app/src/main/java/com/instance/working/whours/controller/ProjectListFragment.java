@@ -3,6 +3,8 @@ package com.instance.working.whours.controller;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -29,6 +31,12 @@ public class ProjectListFragment extends ListFragment {
         //mCrims = CrimLab.get(getActivity()).get_crimList();
         ProjectAdapter adpter = new ProjectAdapter(DataListFactory.get(getActivity()).getProjectList());
         setListAdapter(adpter);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_projectlist,menu);
     }
 
     private class ProjectAdapter extends ArrayAdapter<ProjectInfo>

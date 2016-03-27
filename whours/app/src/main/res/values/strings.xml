@@ -3,4 +3,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="newproject">新建工程</string>
+
+    <string name="project_title">工程名称</string>
+    <string name="project_titlehint">请输入工程名称</string>
+
 </resources>
