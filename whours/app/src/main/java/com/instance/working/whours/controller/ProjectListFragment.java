@@ -1,10 +1,12 @@
 package com.instance.working.whours.controller;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.instance.working.whours.R;
 import com.instance.working.whours.model.DataListFactory;
 import com.instance.working.whours.model.ProjectInfo;
+import com.instance.working.whours.view.ProjectActivity;
 
 import java.util.ArrayList;
 
@@ -39,6 +42,22 @@ public class ProjectListFragment extends ListFragment {
         inflater.inflate(R.menu.menu_projectlist,menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.menu_newproject:
+                ProjectInfo c = new ProjectInfo();
+                Intent i = new Intent(getActivity(),ProjectActivity.class);
+                DataListFactory.get(getActivity()).getProjectList().add(c);
+                i.putExtra(ProjectActivity.EXTRA_PROJECT_ID, c.getId());
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private class ProjectAdapter extends ArrayAdapter<ProjectInfo>
     {
         public ProjectAdapter(ArrayList<ProjectInfo> projectInfos)
@@ -58,23 +77,7 @@ public class ProjectListFragment extends ListFragment {
             ProjectInfo projectInfo = getItem(position);
             title_text.setText(projectInfo.getTitle());
             detail_text.setText(projectInfo.getDetail());
-
-            float time_value = 0;
-            if(projectInfo.getCostTime()/3600 != 0)
-            {
-                time_value = ((float)projectInfo.getCostTime())/3600;
-                time_text.setText(String.format("%.2f天", time_value));
-            }else if(projectInfo.getCostTime()/60 != 0)
-            {
-                time_value = ((float)projectInfo.getCostTime())/60;
-                time_text.setText(String.format("%.2f小时", time_value));
-            }
-            else
-            {
-                time_value = projectInfo.getCostTime();
-                time_text.setText(String.format("%.2f分钟", time_value));
-            }
-
+            time_text.setText(projectInfo.getCostTimeStr());
             return convertView;
         }
     }

@@ -26,7 +26,7 @@ public class ProjectInfo {
     private String Title;
     private String Detail;
     private int Weigth;
-    ProjectInfo()
+    public ProjectInfo()
     {
         Id = UUID.randomUUID();
     }
@@ -44,6 +44,23 @@ public class ProjectInfo {
 
     public long getCostTime() {
         return CostTime;
+    }
+    public String getCostTimeStr() {
+        float time_value = 0;
+        if(CostTime/3600 != 0)
+        {
+            time_value = ((float)CostTime)/3600;
+            return String.format("%.2f天", time_value);
+        }else if(CostTime/60 != 0)
+        {
+            time_value = ((float)CostTime)/60;
+            return  String.format("%.2f小时", time_value);
+        }
+        else
+        {
+            time_value = CostTime;
+            return String.format("%.2f分钟", time_value);
+        }
     }
 
     public int getWeigth() {

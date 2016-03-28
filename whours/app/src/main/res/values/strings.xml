@@ -7,5 +7,6 @@
 
     <string name="project_title">工程名称</string>
     <string name="project_titlehint">请输入工程名称</string>
-
+    <string name="project_detail">工程详情：</string>
+    <string name="project_detailhint">请输入工程详情</string>
 </resources>
