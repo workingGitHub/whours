@@ -1,5 +1,6 @@
 package com.instance.working.whours.controller;
 
+import android.app.Fragment;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,30 +20,28 @@ import java.util.UUID;
 /**
  * Created by Administrator on 2016/2/2 0002.
  */
-public class ProjectFragment extends ListFragment {
+public class ProjectFragment extends Fragment {
     public static final String EXTRA_PROJECT_ID = "com.instance.working.whours.controlle.ProjectFragment.EXTRA_PROJECT_ID";
     public ProjectInfo _projcetinfo;
-    EditText _project_name;
-    EditText _project_detail;
     public static ProjectFragment newInstance(UUID id)
     {
         Bundle args = new Bundle();
-        Log.e("working", "1.1");
+        Log.v("working", "1.1");
 
         args.putSerializable(EXTRA_PROJECT_ID, id);
-        Log.e("working", "1.2");
+        Log.v("working", "1.2");
         ProjectFragment c = new ProjectFragment();
         c.setArguments(args);
-        Log.e("working", "1.3");
+        Log.v("working", "1.3");
         return c;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID id = (UUID) getArguments().getSerializable(EXTRA_PROJECT_ID);
-        Log.e("working", "2.1");
+        Log.v("working", "2.1");
         setHasOptionsMenu(true);
-        Log.e("working", "2.2");
+        Log.v("working", "2.2");
         if(id != null)
         {
             _projcetinfo = DataListFactory.get(getActivity()).getProjectItem(id);
@@ -51,18 +50,18 @@ public class ProjectFragment extends ListFragment {
         {
             _projcetinfo = new ProjectInfo();
         }
-        Log.e("working", "2.3");
+        Log.v("working", "2.3");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View _v = inflater.inflate(R.layout.layout_projectinfo,container,false);
-        Log.e("working", "3.1");
-        _project_name = (EditText)_v.findViewById(R.id.project_title);
-        _project_detail = (EditText)_v.findViewById(R.id.project_detail);
+        Log.v("working", "3.1");
+        EditText _project_name = (EditText)_v.findViewById(R.id.project_title);
+        EditText _project_detail = (EditText)_v.findViewById(R.id.project_detail);
         _project_name.setText(_projcetinfo.getTitle());
         _project_detail.setText(_projcetinfo.getDetail());
-        Log.e("working", "3.2");
+        Log.v("working", String.format("3.2 %s %s",_projcetinfo.getTitle(),_projcetinfo.getDetail()));
         _project_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -95,7 +94,7 @@ public class ProjectFragment extends ListFragment {
 
             }
         });
-        Log.e("working", "3.3");
+        Log.v("working", "3.3");
         return _v;
     }
 }

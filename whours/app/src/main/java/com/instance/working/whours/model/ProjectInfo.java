@@ -29,6 +29,10 @@ public class ProjectInfo {
     public ProjectInfo()
     {
         Id = UUID.randomUUID();
+        Title = new String();
+        Detail = new String();
+        CostTime = 0;
+        Weigth = 0;
     }
     public UUID getId() {
         return Id;
