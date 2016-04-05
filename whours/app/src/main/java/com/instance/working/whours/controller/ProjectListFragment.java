@@ -37,6 +37,12 @@ public class ProjectListFragment extends ListFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ((ProjectAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_projectlist,menu);
