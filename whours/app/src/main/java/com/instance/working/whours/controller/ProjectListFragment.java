@@ -4,12 +4,16 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.instance.working.whours.R;
@@ -45,7 +49,7 @@ public class ProjectListFragment extends ListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_projectlist,menu);
+        inflater.inflate(R.menu.menu_projectlist, menu);
     }
 
     @Override
@@ -55,13 +59,54 @@ public class ProjectListFragment extends ListFragment {
             case R.id.menu_newproject:
                 ProjectInfo c = new ProjectInfo();
                 Intent i = new Intent(getActivity(),ProjectActivity.class);
-                DataListFactory.get(getActivity()).getProjectList().add(c);
+                DataListFactory.get(getActivity()).AddProject(c);
                 i.putExtra(ProjectActivity.EXTRA_PROJECT_ID, c.getId());
                 startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    // 创建上下文菜单
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getActivity().getMenuInflater().inflate(R.menu.menu_projectlist_context, menu);
+        //super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        //因为ListView是AdpterView的子类，所以getmenuInfo返回的为AdpaterContextmenuInfo
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        int postion = info.position;
+        ProjectAdapter cAdper = (ProjectAdapter)getListAdapter();
+        ProjectInfo c = cAdper.getItem(postion);
+        switch (item.getItemId())
+        {
+            case R.id.menu_delete_projectinfo:
+                DataListFactory.get(getActivity()).DelProject(c);
+                cAdper.notifyDataSetChanged();
+                return true;
+            case R.id.menu_change_projectinfo:
+                Intent i = new Intent(getActivity(),ProjectActivity.class);
+                i.putExtra(ProjectActivity.EXTRA_PROJECT_ID, c.getId());
+                startActivity(i);
+                return true;
+            default :
+                break;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // 注册上下文状态
+        View v = super.onCreateView(inflater, container, savedInstanceState);
+        ListView listview = (ListView)v.findViewById(android.R.id.list);
+        listview.setBackgroundResource(R.drawable.projectinfo_background);
+        registerForContextMenu(listview);
+        return v;
     }
 
     private class ProjectAdapter extends ArrayAdapter<ProjectInfo>
