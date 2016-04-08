@@ -55,3 +55,13 @@
         registerForContextMenu(listview);
         return v;
     }
+
+## 2016-4-8：
+>tips:时间的计算方法
+>
+>当前时间的获取 Date curdate = new Date
+>
+>时间差的计算  long diff = a.gettime() - b.gettime() 
+>
+>间隔为毫秒
+

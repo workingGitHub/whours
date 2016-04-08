@@ -2,6 +2,7 @@ package com.instance.working.whours.controller;
 
 import android.app.ListFragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -109,6 +110,26 @@ public class ProjectListFragment extends ListFragment {
         return v;
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        ProjectAdapter cAdper = (ProjectAdapter)getListAdapter();
+        ProjectInfo c = (ProjectInfo)(cAdper.getItem(position));
+        if(c.isStart()) {
+            //v.setBackgroundColor(Color.WHITE);
+            if(c.End()) {
+                // TODO: 后续需要完成向item详细页面的跳转
+            }
+
+        }
+        else
+        {
+            c.Start();
+            //v.setBackgroundColor(Color.RED);
+        }
+        cAdper.notifyDataSetChanged();
+    }
+
     private class ProjectAdapter extends ArrayAdapter<ProjectInfo>
     {
         public ProjectAdapter(ArrayList<ProjectInfo> projectInfos)
@@ -129,6 +150,14 @@ public class ProjectListFragment extends ListFragment {
             title_text.setText(projectInfo.getTitle());
             detail_text.setText(projectInfo.getDetail());
             time_text.setText(projectInfo.getCostTimeStr());
+            if(projectInfo.isStart())
+            {
+                convertView.setBackgroundColor(Color.RED);
+            }
+            else
+            {
+                convertView.setBackgroundColor(Color.WHITE);
+            }
             return convertView;
         }
     }

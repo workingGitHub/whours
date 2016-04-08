@@ -1,5 +1,7 @@
 package com.instance.working.whours.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -26,6 +28,40 @@ public class ProjectInfo {
     private String Title;
     private String Detail;
     private int Weigth;
+    private ItemInfo GoingItem; //正在进行的学习项目
+
+
+    public ItemInfo getGoingItem() {
+        return GoingItem;
+    }
+
+    public void setGoingItem(ItemInfo goingItem) {
+        GoingItem = goingItem;
+    }
+
+    public boolean isStart()
+    {
+        return GoingItem != null;
+    }
+    public void Start()
+    {
+        Log.v("working",String.format("Start [%s]",Title));
+        GoingItem = new ItemInfo();
+        GoingItem.Start();
+
+    }
+    public boolean End()
+    {
+        boolean isEnd = GoingItem.End();
+        if(isEnd)
+        {
+            ItemList.add(GoingItem);
+        }
+        Log.v("working",String.format("End [%s] [%d]",Title,GoingItem.getMaxCostTime()));
+        GoingItem = null;
+        return isEnd;
+    }
+
     public ProjectInfo()
     {
         Id = UUID.randomUUID();
@@ -33,6 +69,8 @@ public class ProjectInfo {
         Detail = new String();
         CostTime = 0;
         Weigth = 0;
+        GoingItem = null;
+        ItemList = new ArrayList<ItemInfo>();
     }
     public UUID getId() {
         return Id;
