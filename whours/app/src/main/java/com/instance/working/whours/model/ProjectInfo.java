@@ -132,4 +132,17 @@ public class ProjectInfo {
     public void setWeigth(int weigth) {
         Weigth = weigth;
     }
+
+    public ItemInfo getItemInfo(UUID id){
+        for(ItemInfo p:ItemList)
+        {
+            if(p.getId().equals(id))
+            {
+                return p;
+            }
+        }
+        return null;
+    }
+
+
 }

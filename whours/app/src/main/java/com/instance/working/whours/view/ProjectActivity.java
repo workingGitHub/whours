@@ -15,8 +15,6 @@ public class ProjectActivity extends SingFragmentActivity{
 
     @Override
     protected Fragment createFragment() {
-        Log.v("working","1");
-
         UUID id = (UUID)getIntent().getSerializableExtra(EXTRA_PROJECT_ID);
         return ProjectFragment.newInstance(id);
     }

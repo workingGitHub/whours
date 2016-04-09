@@ -19,7 +19,9 @@ import android.widget.TextView;
 
 import com.instance.working.whours.R;
 import com.instance.working.whours.model.DataListFactory;
+import com.instance.working.whours.model.ItemInfo;
 import com.instance.working.whours.model.ProjectInfo;
+import com.instance.working.whours.view.ItemActivity;
 import com.instance.working.whours.view.ProjectActivity;
 
 import java.util.ArrayList;
@@ -117,8 +119,13 @@ public class ProjectListFragment extends ListFragment {
         ProjectInfo c = (ProjectInfo)(cAdper.getItem(position));
         if(c.isStart()) {
             //v.setBackgroundColor(Color.WHITE);
+            ItemInfo _itemInfo = c.getGoingItem();
             if(c.End()) {
                 // TODO: 后续需要完成向item详细页面的跳转
+                Intent i = new Intent(getActivity(),ItemActivity.class);
+                i.putExtra(ItemActivity.EXTRA_PROJECT_ID, c.getId());
+                i.putExtra(ItemActivity.EXTRA_ITEM_ID, _itemInfo.getId());
+                startActivity(i);
             }
 
         }

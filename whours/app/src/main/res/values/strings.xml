@@ -12,5 +12,12 @@
 
     <string name="contextmenu_project_delete">删除该工程</string>
     <string name="contextmenu_project_change">修改该工程</string>
+    <string name="item_starttime">开始时间：</string>
+    <string name="item_endtime">结束时间：</string>
+    <string name="item_costtime">消耗时间：</string>
+    <string name="item_detail">笔记</string>
+    <string name="item_timetype">分钟</string>
+    <string name="item_detailhint">请输入学习心得或者笔记</string>
 
+    <string name="err_exceedmaxcosttime">输入的时间已经超过了最长时间，你确定吗？</string>
 </resources>

@@ -23,6 +23,46 @@ public class ItemInfo {
     private Date StartTime;
     private Date EndTime;
 
+    public void setStartTime(Date startTime) {
+        StartTime = startTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        EndTime = endTime;
+    }
+
+    public void setMaxCostTime(long maxCostTime) {
+        MaxCostTime = maxCostTime;
+    }
+
+    public void setDetail(String detail) {
+        Detail = detail;
+    }
+
+    public void setCostTime(long costTime) {
+        CostTime = costTime;
+    }
+
+    public UUID getId() {
+        return Id;
+    }
+
+    public String getDetail() {
+        return Detail;
+    }
+
+    public long getCostTime() {
+        return CostTime;
+    }
+
+    public Date getEndTime() {
+        return EndTime;
+    }
+
+    public Date getStartTime() {
+        return StartTime;
+    }
+
     public long getMaxCostTime() {
         return MaxCostTime;
     }
@@ -56,7 +96,8 @@ public class ItemInfo {
 
         MaxCostTime = EndTime.getTime() - StartTime.getTime();
         MaxCostTime /= 1000 * 60;
-        return MaxCostTime != 0;
+        MaxCostTime++;
+        return MaxCostTime != 1;
     }
 
 }
