@@ -69,3 +69,14 @@
 完成item的详细页面设计
 
 下一步计划完成itemlist页面的设计
+
+## 2016-4-11
+解决item界面，不修改时间显示修改时间为0的问题。
+
+完成itemlist页面的设计
+
+>时间的格式化输出
+>        SimpleDateFormat sdf = new SimpleDateFormat(s);
+
+>http://www.cnblogs.com/mailingfeng/archive/2011/07/28/2120422.html
+

@@ -12,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="项目标题"
-        android:id="@+id/list_item_name"
+        android:id="@+id/list_project_name"
         android:textColor="#000"
         android:textSize="12pt"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
-        android:id="@+id/list_item_detail"
+        android:id="@+id/list_project_detail"
         android:textColor="#41110f0e"/>
 
 </LinearLayout>
@@ -32,5 +32,5 @@
         android:text="时间时间"
         android:textSize="18pt"
         android:textColor="#000"
-        android:id="@+id/list_item_time"/>
+        android:id="@+id/list_project_time"/>
 </LinearLayout>

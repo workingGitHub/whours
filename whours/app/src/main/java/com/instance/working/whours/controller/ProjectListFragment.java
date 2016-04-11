@@ -22,6 +22,7 @@ import com.instance.working.whours.model.DataListFactory;
 import com.instance.working.whours.model.ItemInfo;
 import com.instance.working.whours.model.ProjectInfo;
 import com.instance.working.whours.view.ItemActivity;
+import com.instance.working.whours.view.ItemListActivity;
 import com.instance.working.whours.view.ProjectActivity;
 
 import java.util.ArrayList;
@@ -85,6 +86,7 @@ public class ProjectListFragment extends ListFragment {
         int postion = info.position;
         ProjectAdapter cAdper = (ProjectAdapter)getListAdapter();
         ProjectInfo c = cAdper.getItem(postion);
+        Intent i;
         switch (item.getItemId())
         {
             case R.id.menu_delete_projectinfo:
@@ -92,8 +94,17 @@ public class ProjectListFragment extends ListFragment {
                 cAdper.notifyDataSetChanged();
                 return true;
             case R.id.menu_change_projectinfo:
-                Intent i = new Intent(getActivity(),ProjectActivity.class);
+                i = new Intent(getActivity(),ProjectActivity.class);
                 i.putExtra(ProjectActivity.EXTRA_PROJECT_ID, c.getId());
+                startActivity(i);
+                return true;
+            case R.id.menu_cancel_studystate:
+                c.cancelStart();
+                cAdper.notifyDataSetChanged();
+                return true;
+            case R.id.menu_show_itemlist:
+                i = new Intent(getActivity(),ItemListActivity.class);
+                i.putExtra(ItemListActivity.EXTRA_PROJECT_ID, c.getId());
                 startActivity(i);
                 return true;
             default :
@@ -150,9 +161,9 @@ public class ProjectListFragment extends ListFragment {
             {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_projectlist_item,null);
             }
-            TextView title_text = (TextView)convertView.findViewById(R.id.list_item_name);
-            TextView detail_text = (TextView)convertView.findViewById(R.id.list_item_detail);
-            TextView time_text = (TextView)convertView.findViewById(R.id.list_item_time);
+            TextView title_text = (TextView)convertView.findViewById(R.id.list_project_name);
+            TextView detail_text = (TextView)convertView.findViewById(R.id.list_project_detail);
+            TextView time_text = (TextView)convertView.findViewById(R.id.list_project_time);
             ProjectInfo projectInfo = getItem(position);
             title_text.setText(projectInfo.getTitle());
             detail_text.setText(projectInfo.getDetail());

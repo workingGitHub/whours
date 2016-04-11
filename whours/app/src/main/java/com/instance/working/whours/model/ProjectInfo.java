@@ -50,6 +50,10 @@ public class ProjectInfo {
         GoingItem.Start();
 
     }
+    public void cancelStart()
+    {
+        GoingItem = null;
+    }
     public boolean End()
     {
         boolean isEnd = GoingItem.End();

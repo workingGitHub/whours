@@ -12,6 +12,9 @@
 
     <string name="contextmenu_project_delete">删除该工程</string>
     <string name="contextmenu_project_change">修改该工程</string>
+    <string name="contextmenu_project_cancel">取消进行状态</string>
+    <string name="contextmenu_project_showitemlist">显示历史记录</string>
+
     <string name="item_starttime">开始时间：</string>
     <string name="item_endtime">结束时间：</string>
     <string name="item_costtime">消耗时间：</string>

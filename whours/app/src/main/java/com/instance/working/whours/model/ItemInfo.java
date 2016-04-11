@@ -1,5 +1,6 @@
 package com.instance.working.whours.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -22,6 +23,10 @@ public class ItemInfo {
     private UUID Id; //项目ID
     private Date StartTime;
     private Date EndTime;
+
+    private long MaxCostTime;
+    private long CostTime;
+    private String Detail;
 
     public void setStartTime(Date startTime) {
         StartTime = startTime;
@@ -67,10 +72,6 @@ public class ItemInfo {
         return MaxCostTime;
     }
 
-    private long MaxCostTime;
-    private long CostTime;
-    private String Detail;
-
     public ItemInfo()
     {
         Id = UUID.randomUUID();
@@ -97,7 +98,34 @@ public class ItemInfo {
         MaxCostTime = EndTime.getTime() - StartTime.getTime();
         MaxCostTime /= 1000 * 60;
         MaxCostTime++;
+        CostTime = MaxCostTime;
         return MaxCostTime != 1;
     }
+    public String getCostTimeStr() {
+        float time_value = 0;
+        if(CostTime/3600 != 0)
+        {
+            time_value = ((float)CostTime)/3600;
+            return String.format("%.2f天", time_value);
+        }else if(CostTime/60 != 0)
+        {
+            time_value = ((float)CostTime)/60;
+            return  String.format("%.2f小时", time_value);
+        }
+        else
+        {
+            time_value = CostTime;
+            return String.format("%.2f分钟", time_value);
+        }
+    }
+    public String getStartTimestr(String s) {
+        if(StartTime == null)
+        {
+            return new String();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(s);
+        return sdf.format(StartTime);
+    }
+
 
 }

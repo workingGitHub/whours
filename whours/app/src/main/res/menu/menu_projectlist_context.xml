@@ -4,4 +4,8 @@
         android:title="@string/contextmenu_project_delete"></item>
     <item android:id="@+id/menu_change_projectinfo"
         android:title="@string/contextmenu_project_change"></item>
+    <item android:id="@+id/menu_cancel_studystate"
+        android:title="@string/contextmenu_project_cancel"></item>
+    <item android:id="@+id/menu_show_itemlist"
+        android:title="@string/contextmenu_project_showitemlist"></item>
 </menu>
