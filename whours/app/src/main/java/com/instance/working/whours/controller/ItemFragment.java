@@ -78,9 +78,9 @@ public class ItemFragment extends Fragment {
         TextView _project_name = (TextView)_v.findViewById(R.id.item_projecttitle);
         _project_name.setText(_projcetinfo.getTitle());
         TextView _starttime = (TextView)_v.findViewById(R.id.item_starttime);
-        _starttime.setText(_iteminfo.getStartTime().toString());
+        _starttime.setText(_iteminfo.getStartTimestr("yyyy-MM-dd H:m:s"));
         TextView _endtime = (TextView)_v.findViewById(R.id.item_endtime);
-        _endtime.setText(_iteminfo.getEndTime().toString());
+        _endtime.setText(_iteminfo.getEndTimestr("yyyy-MM-dd H:m:s"));
 
         final EditText _costtime = (EditText)_v.findViewById(R.id.item_costtime);
         final EditText _itemdetail = (EditText)_v.findViewById(R.id.item_detail);

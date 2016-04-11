@@ -126,6 +126,13 @@ public class ItemInfo {
         SimpleDateFormat sdf = new SimpleDateFormat(s);
         return sdf.format(StartTime);
     }
-
+    public String getEndTimestr(String s) {
+        if(EndTime == null)
+        {
+            return new String();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(s);
+        return sdf.format(EndTime);
+    }
 
 }
