@@ -45,6 +45,12 @@ public class ProjectListFragment extends ListFragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        DataListFactory.get(getActivity()).onSave();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         ((ProjectAdapter)getListAdapter()).notifyDataSetChanged();

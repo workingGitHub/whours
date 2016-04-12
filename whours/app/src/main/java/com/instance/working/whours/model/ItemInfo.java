@@ -1,5 +1,8 @@
 package com.instance.working.whours.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
@@ -20,6 +23,13 @@ import java.util.UUID;
  */
 
 public class ItemInfo {
+    private static String ITEM_ID = "ITEM_ID";
+    private static String ITEM_STARTTIME = "ITEM_STARTTIME";
+    private static String ITEM_ENDTIME = "ITEM_ENDTIME";
+    private static String ITEM_MAXCOSTTIME = "ITEM_MAXCOSTTIME";
+    private static String ITEM_COSTTIME = "ITEM_COSTTIME";
+    private static String ITEM_DETAIL = "ITEM_DETAIL";
+
     private UUID Id; //ÏîÄ¿ID
     private Date StartTime;
     private Date EndTime;
@@ -27,6 +37,59 @@ public class ItemInfo {
     private long MaxCostTime;
     private long CostTime;
     private String Detail;
+
+
+    ItemInfo(JSONObject json) throws JSONException
+    {
+        Id = UUID.fromString(json.getString(ITEM_ID));
+        CostTime = 0;
+        StartTime = null;
+        EndTime = null;
+        MaxCostTime = 0;
+        if(json.has(ITEM_STARTTIME))
+        {
+            StartTime = new Date(json.getLong(ITEM_STARTTIME));
+        }
+
+        if(json.has(ITEM_ENDTIME))
+        {
+            EndTime = new Date(json.getLong(ITEM_ENDTIME));
+        }
+
+        if(json.has(ITEM_MAXCOSTTIME))
+        {
+            MaxCostTime = json.getLong(ITEM_MAXCOSTTIME);
+        }
+        if(json.has(ITEM_COSTTIME))
+        {
+            CostTime = json.getLong(ITEM_COSTTIME);
+        }
+        if(json.has(ITEM_DETAIL))
+        {
+            Detail = json.getString(Detail);
+        }
+    }
+    public ItemInfo()
+    {
+        Id = UUID.randomUUID();
+        Detail = new String();
+        CostTime = 0;
+        StartTime = null;
+        EndTime = null;
+    }
+
+    public JSONObject toJSON() throws JSONException
+    {
+        JSONObject jObject = new JSONObject();
+        jObject.put(ITEM_STARTTIME,Id.toString());
+        jObject.put(ITEM_STARTTIME,StartTime.getTime());
+        jObject.put(ITEM_ENDTIME,EndTime.getTime());
+        jObject.put(ITEM_MAXCOSTTIME,MaxCostTime);
+        jObject.put(ITEM_COSTTIME,CostTime);
+        jObject.put(ITEM_DETAIL,Detail);
+        return jObject;
+    }
+
 
     public void setStartTime(Date startTime) {
         StartTime = startTime;
@@ -72,14 +135,6 @@ public class ItemInfo {
         return MaxCostTime;
     }
 
-    public ItemInfo()
-    {
-        Id = UUID.randomUUID();
-        Detail = new String();
-        CostTime = 0;
-        StartTime = null;
-        EndTime = null;
-    }
 
     public void Start()
     {

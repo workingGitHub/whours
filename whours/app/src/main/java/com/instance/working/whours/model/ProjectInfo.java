@@ -2,7 +2,17 @@ package com.instance.working.whours.model;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -22,6 +32,14 @@ import java.util.UUID;
  * itemlist:  项目列表
  */
 public class ProjectInfo {
+    private static String PROJECT_ID = "PROJECT_ID";
+    private static String PROJECT_COSTTIME = "PROJECT_COSTTIME";
+    private static String PROJECT_TITLE = "PROJECT_TITLE";
+    private static String PROJECT_DETAIL = "PROJECT_DETAIL";
+    private static String PROJECT_WEIGTH = "PROJECT_WEIGTH";
+    private static String PROJECT_ITEMLIST = "PROJECT_ITEMLIST";
+    private static String PROJECT_GOINGITEM = "PROJECT_GOINGITEM";
+
     private UUID Id; //项目ID
     private ArrayList<ItemInfo> ItemList; //项目的学习信息列表
     private long CostTime;
@@ -29,6 +47,96 @@ public class ProjectInfo {
     private String Detail;
     private int Weigth;
     private ItemInfo GoingItem; //正在进行的学习项目
+
+
+    ProjectInfo(JSONObject json) throws JSONException
+    {
+        Id = UUID.fromString(json.getString(PROJECT_ID));
+
+        CostTime = 0;
+        Weigth = 0;
+        GoingItem = null;
+
+        if(json.has(PROJECT_COSTTIME))
+        {
+            CostTime = json.getLong(PROJECT_COSTTIME);
+        }
+
+        if(json.has(PROJECT_TITLE))
+        {
+            Title = json.getString(PROJECT_TITLE);
+        }else{
+            Title = new String();
+        }
+        if(json.has(PROJECT_DETAIL))
+        {
+            Detail = json.getString(PROJECT_DETAIL);
+        }else{
+            Detail = new String();
+        }
+
+        if(json.has(PROJECT_WEIGTH))
+        {
+            Weigth = json.getInt(PROJECT_WEIGTH);
+        }
+
+        if(json.has(PROJECT_ITEMLIST))
+        {
+            ItemList = CreateJsonItemList(json.getJSONArray(PROJECT_ITEMLIST));
+        }else{
+            ItemList = new ArrayList<ItemInfo>();
+        }
+
+
+        if(json.has(PROJECT_GOINGITEM))
+        {
+            GoingItem = new ItemInfo(json.getJSONObject(PROJECT_GOINGITEM));
+        }
+
+
+    }
+    private ArrayList<ItemInfo> CreateJsonItemList(JSONArray jArray) throws JSONException
+    {
+        ArrayList<ItemInfo> _itemlist = new ArrayList<ItemInfo>();
+        try{
+            //打开要读取的文件
+            for(int i = 0 ;i < jArray.length(); i++)
+            {
+                _itemlist.add(new ItemInfo(jArray.getJSONObject(i)));
+            }
+        }catch (Exception e)
+        {
+
+        }
+        return _itemlist;
+    }
+
+    private JSONArray GetJsonItemList()  throws JSONException
+    {
+        JSONArray jArray = new JSONArray();
+        for(ItemInfo c:ItemList)
+        {
+            // JSONObject jObject = c.toJSON();
+            jArray.put(c.toJSON());
+        }
+        return jArray;
+    }
+
+    public JSONObject toJSON() throws JSONException
+    {
+        JSONObject jObject = new JSONObject();
+        jObject.put(PROJECT_ID,Id.toString());
+        jObject.put(PROJECT_COSTTIME,CostTime);
+        jObject.put(PROJECT_TITLE,Title);
+        jObject.put(PROJECT_DETAIL,Detail);
+        jObject.put(PROJECT_WEIGTH,Weigth);
+        jObject.put(PROJECT_ITEMLIST,GetJsonItemList());
+        if(GoingItem != null) {
+            jObject.put(PROJECT_GOINGITEM, GoingItem.toJSON());
+        }
+
+        return jObject;
+    }
 
 
     public ItemInfo getGoingItem() {

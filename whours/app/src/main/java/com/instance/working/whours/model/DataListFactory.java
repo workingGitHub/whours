@@ -14,6 +14,10 @@ public class DataListFactory {
     private static DataListFactory sInstance;
     private ArrayList<ProjectInfo> mProjectInfoList;
 
+    private static String FileName = "whours";
+    private ProjectIntentJSONSerial _projectJsonSerial;
+
+
 
     public static DataListFactory get(Context c)
     {
@@ -26,16 +30,27 @@ public class DataListFactory {
     private DataListFactory(Context context)
     {
         mContext = context;
-        mProjectInfoList = new ArrayList<ProjectInfo>();
-        for(int i = 0 ; i <  50 ; i++)
+
+        _projectJsonSerial = new ProjectIntentJSONSerial(context,FileName);
+        try {
+            mProjectInfoList = _projectJsonSerial.loadData();
+        }catch (Exception e)
         {
-            ProjectInfo p = new ProjectInfo();
-            p.setTitle(String.format("第%d工程",i));
-            p.setDetail(String.format("第%d个内容内容信息",i));
-            p.setCostTime(i*i*i);
-            AddProject(p);
+            mProjectInfoList = new ArrayList<ProjectInfo>();
         }
     }
+    public boolean onSave()
+    {
+        try {
+            _projectJsonSerial.onSave(mProjectInfoList);
+            return true;
+        }catch (Exception e)
+        {
+            return false;
+        }
+
+    }
+
 
     public void AddProject(ProjectInfo p){mProjectInfoList.add(p);}
     public void DelProject(ProjectInfo p){mProjectInfoList.remove(p);}

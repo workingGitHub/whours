@@ -35,6 +35,12 @@ public class ItemListFragment extends ListFragment {
         return c;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        DataListFactory.get(getActivity()).onSave();
+    }
+
     public ItemListFragment() {
         this._projcetinfo = null;
     }
@@ -52,7 +58,8 @@ public class ItemListFragment extends ListFragment {
             ItemAdapter adpter = new ItemAdapter(_projcetinfo.getItemList());
             setListAdapter(adpter);
         }
-
+        //保存临时信息
+        setRetainInstance(true);
     }
 
 
