@@ -106,6 +106,13 @@ public class ProjectInfo {
             }
         }catch (Exception e)
         {
+            System.out.println(e.toString());
+            System.out.println("--------------------");
+            System.out.println(e.getMessage());
+            System.out.println("--------------------");
+            e.printStackTrace();
+            Log.e("working", e.toString());
+            Log.e("working",e.getMessage());
 
         }
         return _itemlist;

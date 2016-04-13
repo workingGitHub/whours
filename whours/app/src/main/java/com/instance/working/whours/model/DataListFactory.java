@@ -1,6 +1,7 @@
 package com.instance.working.whours.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -37,6 +38,8 @@ public class DataListFactory {
         }catch (Exception e)
         {
             mProjectInfoList = new ArrayList<ProjectInfo>();
+            Log.e("working", e.toString());
+            Log.e("working", e.getMessage());
         }
     }
     public boolean onSave()
@@ -46,6 +49,13 @@ public class DataListFactory {
             return true;
         }catch (Exception e)
         {
+            System.out.println(e.toString());
+            System.out.println("--------------------");
+            System.out.println(e.getMessage());
+            System.out.println("--------------------");
+            e.printStackTrace();
+            Log.e("working", e.toString());
+            Log.e("working", e.getMessage());
             return false;
         }
 

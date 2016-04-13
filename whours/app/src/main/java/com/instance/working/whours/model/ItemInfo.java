@@ -66,8 +66,11 @@ public class ItemInfo {
         }
         if(json.has(ITEM_DETAIL))
         {
-            Detail = json.getString(Detail);
+            Detail = json.getString(ITEM_DETAIL);
+        }else{
+            Detail = new String();
         }
+
     }
     public ItemInfo()
     {
@@ -81,9 +84,13 @@ public class ItemInfo {
     public JSONObject toJSON() throws JSONException
     {
         JSONObject jObject = new JSONObject();
-        jObject.put(ITEM_STARTTIME,Id.toString());
-        jObject.put(ITEM_STARTTIME,StartTime.getTime());
-        jObject.put(ITEM_ENDTIME,EndTime.getTime());
+        jObject.put(ITEM_ID,Id.toString());
+        if(StartTime != null) {
+            jObject.put(ITEM_STARTTIME, StartTime.getTime());
+        }
+        if(EndTime != null) {
+            jObject.put(ITEM_ENDTIME, EndTime.getTime());
+        }
         jObject.put(ITEM_MAXCOSTTIME,MaxCostTime);
         jObject.put(ITEM_COSTTIME,CostTime);
         jObject.put(ITEM_DETAIL,Detail);
