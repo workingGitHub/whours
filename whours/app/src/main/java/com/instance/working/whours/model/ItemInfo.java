@@ -30,6 +30,7 @@ public class ItemInfo {
     private static String ITEM_COSTTIME = "ITEM_COSTTIME";
     private static String ITEM_DETAIL = "ITEM_DETAIL";
 
+    ProjectInterface pInterface;
     private UUID Id; //ÏîÄ¿ID
     private Date StartTime;
     private Date EndTime;
@@ -39,8 +40,9 @@ public class ItemInfo {
     private String Detail;
 
 
-    ItemInfo(JSONObject json) throws JSONException
+    ItemInfo(JSONObject json,ProjectInterface pIf) throws JSONException
     {
+        pInterface = pIf;
         Id = UUID.fromString(json.getString(ITEM_ID));
         CostTime = 0;
         StartTime = null;
@@ -72,8 +74,9 @@ public class ItemInfo {
         }
 
     }
-    public ItemInfo()
+    public ItemInfo(ProjectInterface pIf)
     {
+        pInterface = pIf;
         Id = UUID.randomUUID();
         Detail = new String();
         CostTime = 0;
@@ -115,6 +118,10 @@ public class ItemInfo {
     }
 
     public void setCostTime(long costTime) {
+        if(pInterface != null)
+        {
+            pInterface.UpdateCostTime(costTime,CostTime);
+        }
         CostTime = costTime;
     }
 
@@ -160,7 +167,8 @@ public class ItemInfo {
         MaxCostTime = EndTime.getTime() - StartTime.getTime();
         MaxCostTime /= 1000 * 60;
         MaxCostTime++;
-        CostTime = MaxCostTime;
+        setCostTime(MaxCostTime);
+        // CostTime = MaxCostTime;
         return MaxCostTime != 1;
     }
     public String getCostTimeStr() {

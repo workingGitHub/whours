@@ -31,7 +31,7 @@ import java.util.UUID;
  * weigth： 该项目的重要程度（忽略，次要，重要，紧急）
  * itemlist:  项目列表
  */
-public class ProjectInfo {
+public class ProjectInfo extends ProjectInterface {
     private static String PROJECT_ID = "PROJECT_ID";
     private static String PROJECT_COSTTIME = "PROJECT_COSTTIME";
     private static String PROJECT_TITLE = "PROJECT_TITLE";
@@ -90,11 +90,22 @@ public class ProjectInfo {
 
         if(json.has(PROJECT_GOINGITEM))
         {
-            GoingItem = new ItemInfo(json.getJSONObject(PROJECT_GOINGITEM));
+            GoingItem = new ItemInfo(json.getJSONObject(PROJECT_GOINGITEM),this);
         }
 
-
+        CostTime = 0;
+        for(ItemInfo c:ItemList)
+        {
+            CostTime  = CostTime + c.getCostTime();
+        }
     }
+
+    @Override
+    public void UpdateCostTime(long NewCostTime, long OldCostTime) {
+        CostTime = CostTime - OldCostTime + NewCostTime;
+    }
+
+
     private ArrayList<ItemInfo> CreateJsonItemList(JSONArray jArray) throws JSONException
     {
         ArrayList<ItemInfo> _itemlist = new ArrayList<ItemInfo>();
@@ -102,7 +113,7 @@ public class ProjectInfo {
             //打开要读取的文件
             for(int i = 0 ;i < jArray.length(); i++)
             {
-                _itemlist.add(new ItemInfo(jArray.getJSONObject(i)));
+                _itemlist.add(new ItemInfo(jArray.getJSONObject(i),this));
             }
         }catch (Exception e)
         {
@@ -161,7 +172,7 @@ public class ProjectInfo {
     public void Start()
     {
         Log.v("working",String.format("Start [%s]",Title));
-        GoingItem = new ItemInfo();
+        GoingItem = new ItemInfo(this);
         GoingItem.Start();
 
     }
@@ -175,6 +186,10 @@ public class ProjectInfo {
         if(isEnd)
         {
             ItemList.add(GoingItem);
+        }
+        else
+        {
+            CostTime--;
         }
         Log.v("working",String.format("End [%s] [%d]",Title,GoingItem.getMaxCostTime()));
         GoingItem = null;
