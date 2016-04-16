@@ -100,7 +100,14 @@ public class ItemInfo {
         return jObject;
     }
 
-
+    public UUID getProjectId()
+    {
+        if(pInterface != null)
+        {
+            return pInterface.getProjectId();
+        }
+        return null;
+    }
     public void setStartTime(Date startTime) {
         StartTime = startTime;
     }

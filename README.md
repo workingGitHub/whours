@@ -84,3 +84,11 @@
 解决两个愚蠢的bug之后，终于可以用了~  呼呼呼呼呼
 
 果然还是异常有用~~ 不能随便捕获了又不用。
+
+## 4-17
+都快忘了 正常跳转到Activity是怎么回事了。
+
+	Intent i = new Intent(MainActivity.this,ProjectListActivity.class);
+	startActivity(i);
+
+完成一些细节方面的修复

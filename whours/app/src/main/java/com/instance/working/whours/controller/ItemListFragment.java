@@ -1,18 +1,26 @@
 package com.instance.working.whours.controller;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.instance.working.whours.R;
 import com.instance.working.whours.model.DataListFactory;
 import com.instance.working.whours.model.ItemInfo;
 import com.instance.working.whours.model.ProjectInfo;
+import com.instance.working.whours.view.ItemActivity;
+import com.instance.working.whours.view.ItemListActivity;
+import com.instance.working.whours.view.ProjectActivity;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -46,6 +54,12 @@ public class ItemListFragment extends ListFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ((ItemAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID id = (UUID) getArguments().getSerializable(EXTRA_PROJECT_ID);
@@ -62,6 +76,19 @@ public class ItemListFragment extends ListFragment {
         setRetainInstance(true);
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        ItemAdapter cAdper = (ItemAdapter)getListAdapter();
+        ItemInfo c = cAdper.getItem(position);
+        Intent i;
+        if(c != null) {
+            i = new Intent(getActivity(), ItemActivity.class);
+            i.putExtra(ItemActivity.EXTRA_PROJECT_ID, c.getProjectId());
+            i.putExtra(ItemActivity.EXTRA_ITEM_ID, c.getId());
+            startActivity(i);
+        }
+    }
 
     private class ItemAdapter extends ArrayAdapter<ItemInfo>
     {

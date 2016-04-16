@@ -138,7 +138,6 @@ public class ProjectListFragment extends ListFragment {
             //v.setBackgroundColor(Color.WHITE);
             ItemInfo _itemInfo = c.getGoingItem();
             if(c.End()) {
-                // TODO: 后续需要完成向item详细页面的跳转
                 Intent i = new Intent(getActivity(),ItemActivity.class);
                 i.putExtra(ItemActivity.EXTRA_PROJECT_ID, c.getId());
                 i.putExtra(ItemActivity.EXTRA_ITEM_ID, _itemInfo.getId());

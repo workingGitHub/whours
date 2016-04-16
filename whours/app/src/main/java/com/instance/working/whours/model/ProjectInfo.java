@@ -105,6 +105,10 @@ public class ProjectInfo extends ProjectInterface {
         CostTime = CostTime - OldCostTime + NewCostTime;
     }
 
+    @Override
+    public UUID getProjectId() {
+        return Id;
+    }
 
     private ArrayList<ItemInfo> CreateJsonItemList(JSONArray jArray) throws JSONException
     {
