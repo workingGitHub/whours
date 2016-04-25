@@ -29,4 +29,16 @@
     <string name="item_detailhint">请输入学习心得或者笔记</string>
 
     <string name="err_exceedmaxcosttime">输入的时间已经超过了最长时间，你确定吗？</string>
+    <string name="err_sdcardnotexist">SD卡不存在，请插入SD卡！</string>
+    <string name="mediabutton_invaild">无法录音</string>
+    <string name="mediabutton_record">开始录音</string>
+    <string name="mediabutton_recording">正在录音</string>
+    <string name="mediabutton_recordend">完成录音</string>
+    <string name="mediabutton_playing">正在播放</string>
+    <string name="mediabutton_default">状态异常</string>
+    <string name="mediabutton_dialog_delete_title">删除音频</string>
+    <string name="mediabutton_dialog_delete_text">你确定删除已经录制好的音频吗?</string>
+    <string name="mediabutton_dialog_btn_yes">我心已决</string>
+    <string name="mediabutton_dialog_btn_no">再考虑下</string>
+
 </resources>
