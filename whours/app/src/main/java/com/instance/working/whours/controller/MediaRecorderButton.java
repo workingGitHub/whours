@@ -28,6 +28,7 @@ public class MediaRecorderButton extends Button {
     File mSourceFile;
     MediaRecorder mRecorder;
     MediaPlayer mMediaPlayer;
+
     private void updateText()
     {
         if(mstate.equals(MediaState.INVALID))
@@ -180,6 +181,20 @@ public class MediaRecorderButton extends Button {
         mRecorder.release();
         mRecorder = null;
         mstate = MediaState.RECORDEND;
+        mMediaPlayer = new MediaPlayer();
+        try {
+            mMediaPlayer.setDataSource(mSourceFile.getAbsolutePath());
+        } catch(Exception e)
+        {
+            System.out.println(e.toString());
+            System.out.println("--------------------");
+            System.out.println(e.getMessage());
+            System.out.println("--------------------");
+            e.printStackTrace();
+            Log.e("working", e.toString());
+            Log.e("working", e.getMessage());
+            mstate = MediaState.INVALID;
+        }
         return ;
     }
     public void StartPlay()
@@ -195,14 +210,17 @@ public class MediaRecorderButton extends Button {
             return;
         }
         try {
-            mMediaPlayer = new MediaPlayer();
-            mMediaPlayer.setDataSource(mSourceFile.getAbsolutePath());
+            if(mMediaPlayer == null) {
+                mMediaPlayer = new MediaPlayer();
+                mMediaPlayer.setDataSource(mSourceFile.getAbsolutePath());
+            }
             mMediaPlayer.prepare();
             mMediaPlayer.start();
             mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     EndPlay();
+                    updateText();
                 }
             });
             mstate = MediaState.PLAYING;
@@ -260,15 +278,10 @@ public class MediaRecorderButton extends Button {
                             mSourceFile.delete();
                         }
                         mstate = MediaState.RECORD;
+                        updateText();
                         return;
                     }
                 });
-        builder.setPositiveButton(R.string.mediabutton_dialog_btn_no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                return;
-            }
-        });
         builder.create().show();
 
     }

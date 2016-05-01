@@ -82,6 +82,10 @@ public class ItemFragment extends Fragment {
         TextView _endtime = (TextView)_v.findViewById(R.id.item_endtime);
         _endtime.setText(_iteminfo.getEndTimestr("yyyy-MM-dd H:m:s"));
 
+        MediaRecorderButton _mediaRecordButton = (MediaRecorderButton)_v.findViewById(R.id.item_mediabutton);
+        if(_iteminfo != null) {
+            _mediaRecordButton.setMediaFileName(_iteminfo.getId().toString());
+        }
         final EditText _costtime = (EditText)_v.findViewById(R.id.item_costtime);
         final EditText _itemdetail = (EditText)_v.findViewById(R.id.item_detail);
         _costtime.setText(String.format("%d", _iteminfo.getMaxCostTime()));
